@@ -6,29 +6,23 @@ import {
   Pressable,
   Text,
   Image,
-  TouchableOpacity,
-  SafeAreaView,
-  Platform,
-  ScrollView,
   Animated,
-  Easing,
 } from "react-native";
 import { Video, ResizeMode } from "expo-av";
 import React, { useEffect, useRef, useState } from "react";
 import EStyleSheet from "react-native-extended-stylesheet";
-import Octicons from "react-native-vector-icons/Octicons";
-import Feather from "react-native-vector-icons/Feather";
 import Entypo from "react-native-vector-icons/Entypo";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import Icon from "react-native-vector-icons/FontAwesome";
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const videos = [
-  "https://r1---sn-5pgoxu-cvhz.googlevideo.com/videoplayback?expire=1717023635&ei=M19XZo-oGK6fi9oP9ZCl8Aw&ip=2a03%3Ab0c0%3A3%3Ad0%3A%3A1a49%3A6002&id=o-AP5q5HnwllXrBnqF7rvyIv7jlhPBcOl5jFOV-tkUtMtd&itag=136&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&vprv=1&svpuc=1&mime=video%2Fmp4&rqh=1&gir=yes&clen=7306246&dur=24.766&lmt=1686054496603541&keepalive=yes&c=IOS&txp=631A224&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cxpc%2Cvprv%2Csvpuc%2Cmime%2Crqh%2Cgir%2Cclen%2Cdur%2Clmt&sig=AJfQdSswRAIgbTDi_jHPaqR6qCk2tbeb2ImXZPl9miLXoQeWKKiSO68CIE0gHhPOCBI63UMANCHhTicsVMrEFSr5RGV4YIHws2_I&title=Top+7+Most+Dangerous+Natural+Disasters+%23shorts+%23Crazy-7&title=Top%207%20Most%20Dangerous%20Natural%20Disasters%20%23shorts%20%23Crazy-7&cms_redirect=yes&mh=pF&mip=103.196.78.122&mm=31&mn=sn-5pgoxu-cvhz&ms=au&mt=1717001595&mv=m&mvi=1&pcm2cms=yes&pl=24&lsparams=mh,mip,mm,mn,ms,mv,mvi,pcm2cms,pl&lsig=AHWaYeowRAIgCMvkvV28JJ-thDp2x3WI52NsVjBepK2U6pxgnsKyP3ECIDlbU-39vIaBfRWenSXLhk6H_dh45o-ipi5MaYUq7y3_",
-  "https://r2---sn-5pgoxu-cvhe.googlevideo.com/videoplayback?expire=1717031141&ei=hXxXZrj6JPWni9oP_e6egA4&ip=2a03%3Ab0c0%3A3%3Ad0%3A%3A1a49%3A6002&id=o-AKIR2nI_j17-3yrL12jxZXKPjFM9uxcWkyR_dNZ479Bl&itag=136&source=youtube&requiressl=yes&xpc=EgVo2aDSNQ%3D%3D&vprv=1&svpuc=1&mime=video%2Fmp4&rqh=1&gir=yes&clen=1176884&dur=8.833&lmt=1683959160610286&keepalive=yes&c=IOS&txp=631A224&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cxpc%2Cvprv%2Csvpuc%2Cmime%2Crqh%2Cgir%2Cclen%2Cdur%2Clmt&sig=AJfQdSswRgIhAKNmtUXP7Fz1rM3SW9dSBonGI-RL8lZc6PBjFZpmjmITAiEA01JZf_uTmjcuE63T8XR14DzutCJbjqdzPUZbr2veGPk%3D&title=VN+editing+%23nature+%23trendingshorts+%23shorts+%23youtubeshorts+%23cinematography+%23rain+%23shortvideo&title=VN%20editing%20%23nature%20%23trendingshorts%20%23shorts%20%23youtubeshorts%20%23cinematography%20%23rain%20%23shortvideo&cms_redirect=yes&mh=5S&mip=103.196.78.122&mm=31&mn=sn-5pgoxu-cvhe&ms=au&mt=1717009286&mv=m&mvi=2&pl=24&lsparams=mh,mip,mm,mn,ms,mv,mvi,pl&lsig=AHWaYeowRQIgZcfxHLmQMtMcOHGn5xHL02KkEzmNh8FCUGeOKj-9P7QCIQDLK9tyL7I0rvnVxIbzlLlbXgVgrfd3QJwm3nksLwqYyg%3D%3D",
+  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCarCanYouGetForAGrand.mp4",
 ];
 
 const WIDTH = Dimensions.get("window").width;
@@ -66,6 +60,47 @@ export default function FeedScreen() {
         showsVerticalScrollIndicator={false}
         viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
       />
+      <View
+        style={{
+          position: "absolute",
+          display: "flex",
+          flexDirection: "row",
+          gap: 57,
+          backgroundColor: "black",
+          width: WIDTH,
+          height: 50,
+          bottom: 0,
+          paddingHorizontal: 30,
+          paddingVertical: 10,
+        }}
+      >
+        <Ionicons
+          name={"home-outline"}
+          color={"white"}
+          size={EStyleSheet.value("1.3rem")}
+        />
+        <Ionicons
+          name={"search-outline"}
+          color={"white"}
+          size={EStyleSheet.value("1.4rem")}
+        />
+        <Ionicons
+          name={"play-circle-outline"}
+          color={"white"}
+          size={EStyleSheet.value("1.5rem")}
+        />
+
+        <Ionicons
+          name={"storefront-outline"}
+          color={"white"}
+          size={EStyleSheet.value("1.3rem")}
+        />
+        <FontAwesome
+          name={"user-circle-o"}
+          color={"white"}
+          size={EStyleSheet.value("1.3rem")}
+        />
+      </View>
     </View>
   );
 }
@@ -223,10 +258,10 @@ const Item = ({ item, shouldPlay }) => {
           gap: 25,
         }}
       >
-        <FontAwesome
+        <MaterialCommunityIcons
           name={"heart"}
           color={"white"}
-          size={EStyleSheet.value("1.5rem")}
+          size={EStyleSheet.value("1.6rem")}
         />
         <FontAwesome
           name={"comment"}
@@ -236,7 +271,7 @@ const Item = ({ item, shouldPlay }) => {
         <FontAwesome
           name={"paper-plane"}
           color={"white"}
-          size={EStyleSheet.value("1.5rem")}
+          size={EStyleSheet.value("1.4rem")}
         />
         <Entypo
           name={"dots-three-horizontal"}
@@ -293,48 +328,6 @@ const Item = ({ item, shouldPlay }) => {
         >
           1.2 K
         </Text>
-      </View>
-
-      <View
-        style={{
-          position: "absolute",
-          display: "flex",
-          flexDirection: "row",
-          gap: 57,
-          backgroundColor: "black",
-          width: WIDTH,
-          height: 50,
-          bottom: 0,
-          paddingHorizontal: 30,
-          paddingVertical: 10,
-        }}
-      >
-        <Ionicons
-          name={"home-outline"}
-          color={"white"}
-          size={EStyleSheet.value("1.3rem")}
-        />
-        <Ionicons
-          name={"search-outline"}
-          color={"white"}
-          size={EStyleSheet.value("1.4rem")}
-        />
-        <Ionicons
-          name={"play-circle-outline"}
-          color={"white"}
-          size={EStyleSheet.value("1.5rem")}
-        />
-
-        <Ionicons
-          name={"storefront-outline"}
-          color={"white"}
-          size={EStyleSheet.value("1.3rem")}
-        />
-        <FontAwesome
-          name={"user-circle-o"}
-          color={"white"}
-          size={EStyleSheet.value("1.3rem")}
-        />
       </View>
     </Pressable>
   );
